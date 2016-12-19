@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.SoftwareMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Software">
+		<id column="s_id" property="s_id" jdbcType="INTEGER" />
+		<result column="s_name" property="s_name" jdbcType="VARCHAR" />
+		<result column="s_ispublished" property="s_ispublished" jdbcType="INTEGER" />
+		<result column="s_finishtime" property="s_finishtime" jdbcType="VARCHAR" />
+		<result column="s_level" property="s_level" jdbcType="INTEGER" />
+		<result column="s_ccm" property="s_ccm" jdbcType="INTEGER" />
+		<result column="s_brief" property="s_brief" jdbcType="VARCHAR" />
+		<result column="s_remark" property="s_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		s_id, s_name, s_ispublished, s_finishtime, s_level,
+		s_ccm, s_brief, s_remark
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertSoftware" parameterType="com.vcevaluation.pojo.Software">
+		insert into software (s_id, s_name, s_ispublished, s_finishtime, s_level,
+		s_ccm, s_brief, s_remark)
+		values ( #{s_id,jdbcType=INTEGER}, 
+		#{s_name,jdbcType=VARCHAR},
+		#{s_ispublished,jdbcType=INTEGER}, 
+		#{s_finishtime,jdbcType=VARCHAR},
+		#{s_level,jdbcType=INTEGER},
+		#{s_ccm,jdbcType=INTEGER}, 
+		#{s_brief,jdbcType=VARCHAR},
+		#{s_remark,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from software
+	    where s_id = #{s_id,jdbcType=INTEGER}
+	</select>
+	
+
+
+
+</mapper>

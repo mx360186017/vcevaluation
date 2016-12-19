@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.ResproMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Respro">
+		<id column="rpro_id" property="rpro_id" jdbcType="INTEGER" />
+		<result column="rpro_res_id" property="rpro_res_id" jdbcType="INTEGER" />
+		<result column="rpro_pro_id" property="rpro_pro_id" jdbcType="INTEGER" />
+		<result column="rpro_remark" property="rpro_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		rpro_id, rpro_res_id, rpro_pro_id, rpro_remark
+	</sql>
+	
+	<insert id="insertRespro" parameterType="com.vcevaluation.pojo.Respro">
+		insert into respro ( rpro_res_id, rpro_pro_id, rpro_remark)
+		values ( #{rpro_res_id,jdbcType=INTEGER}, 
+		#{rpro_pro_id,jdbcType=INTEGER}, 
+		#{rpro_remark,jdbcType=VARCHAR})
+    </insert>
+	
+	<select id="selectByProid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from respro 
+  		where rpro_pro_id = #{rpro_pro_id,jdbcType=INTEGER}
+  		
+    </select>
+
+	  
+	
+</mapper>

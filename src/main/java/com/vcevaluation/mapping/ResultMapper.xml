@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.ResultMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Result">
+		<id column="res_id" property="res_id" jdbcType="INTEGER" />
+		<result column="res_type" property="res_type" jdbcType="INTEGER" />
+		<result column="res_name" property="res_name" jdbcType="VARCHAR" />
+		<result column="res_provider" property="res_provider" jdbcType="INTEGER" />
+		<result column="res_introduction" property="res_introduction" jdbcType="VARCHAR" />
+		<result column="res_url" property="res_url" jdbcType="INTEGER" />
+		<result column="res_flag" property="res_flag" jdbcType="INTEGER" />
+		<result column="res_evalue" property="res_evalue" jdbcType="DOUBLE" />
+		<result column="res_eva_deadline" property="res_eva_deadline" jdbcType="VARCHAR" />
+		<result column="res_protime" property="res_protime" jdbcType="VARCHAR" />
+		<result column="res_times" property="res_times" jdbcType="INTEGER" />
+		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		res_id, res_type, res_name, res_provider, res_introduction, res_url, res_flag, res_evalue, res_eva_deadline, res_protime, res_times
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertResult" parameterType="com.vcevaluation.pojo.Result">
+		insert into result ( res_type, res_name, res_provider, res_introduction, res_url, res_flag, res_evalue, res_eva_deadline, res_protime, res_times)
+		values (#{res_type,jdbcType=INTEGER},
+		#{res_name,jdbcType=VARCHAR}, 
+		#{res_provider,jdbcType=INTEGER},
+		#{res_introduction,jdbcType=VARCHAR}, 
+		#{res_url,jdbcType=INTEGER},
+		#{res_flag,jdbcType=INTEGER}, 
+		#{res_evalue,jdbcType=DOUBLE},
+		#{res_eva_deadline,jdbcType=VARCHAR},
+		#{res_protime,jdbcType=VARCHAR},
+		#{res_times,jdbcType=INTEGER})
+	</insert>
+    <select id="selectResultByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	      <include refid="Base_Column_List" />
+	    from result
+	    where res_name = #{res_name,jdbcType=VARCHAR}
+    </select>
+    <select id="selectResult" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    select 
+	      <include refid="Base_Column_List" />
+	    from result
+	    order by res_protime DESC
+	    limit #{start},#{pagesize} 
+    </select>
+    <select id="selectResult1" resultMap="BaseResultMap">
+	    select 
+	      <include refid="Base_Column_List" />
+	    from result
+	    order by res_protime DESC
+    </select>
+     <select id="selectByResflag" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from result 
+  		where res_flag = #{res_flag,jdbcType=INTEGER}
+  		order by res_protime DESC
+    </select>
+    <select id="listByResflagPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from result 
+  		where res_flag = #{res_flag,jdbcType=INTEGER}
+  		order by res_protime DESC
+  		limit #{start},#{pagesize} 
+    </select>
+    <select id="selectByResType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  		select * 
+  		from result 
+  		where res_type = #{res_type,jdbcType=INTEGER}
+  		order by res_protime DESC
+    </select>
+    <select id="listByResTypePage" parameterType="java.util.Map" resultMap="BaseResultMap">
+  		select * 
+  		from result 
+  		where res_type = #{res_type,jdbcType=INTEGER}
+  		order by res_protime DESC
+  		limit #{start},#{pagesize} 
+    </select>
+<!--     <select id="selectAllPaper"  resultType="java.util.Map">
+	  	select r.*,p.*
+	  	from result as r,paper as p
+	  	where r.res_id=p.paper_id  and r.res_type = 1
+	  	order by r.res_protime DESC
+    </select>
+    <select id="listAllPagerByPage" resultType="java.util.Map"  parameterType="java.util.Map" >
+	    select r.*,p.*
+	  	from result as r,paper as p
+	  	where r.res_id=p.paper_id  and r.res_type = 1
+	  	order by r.res_protime DESC
+	  	limit #{start},#{pagesize} 
+    </select>
+    <select id="selectAllPatent" resultType="java.util.Map">
+	  	select r.*,pa.*
+	  	from result as r,patent as pa
+	  	where r.res_id=pa.patent_id  and r.res_type = 2
+	  	order by r.res_protime DESC
+    </select>
+    <select id="listAllPatentByPage" resultType="java.util.Map"  parameterType="java.util.Map">
+	  	select r.*,pa.*
+	  	from result as r,patent as pa
+	  	where r.res_id=pa.patent_id  and r.res_type = 2
+	  	order by r.res_protime DESC
+	  	limit #{start},#{pagesize} 
+    </select>
+    <select id="selectAllSoftware"  resultType="java.util.Map">
+	  	select r.*,s.*
+	  	from result as r,software as s
+	  	where r.res_id=s.s_id and r.res_type = 3
+        order by r.res_protime DESC
+    </select>
+    <select id="listAllSoftwareByPage"  resultType="java.util.Map"  parameterType="java.util.Map">
+	  	select r.*,s.*
+	  	from result as r,software as s
+	  	where r.res_id=s.s_id and r.res_type = 3
+        order by r.res_protime DESC
+        limit #{start},#{pagesize} 
+    </select> -->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from result
+	    where res_id = #{res_id,jdbcType=INTEGER}
+	</select>
+  
+  	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Result" >
+	    update result
+	    <set >
+	      <if test="res_type != null" >
+	        res_type = #{res_type,jdbcType=INTEGER},
+	      </if>
+	      <if test="res_name != null" >
+	        res_name = #{res_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="res_provider != null" >
+	        res_provider = #{res_provider,jdbcType=INTEGER},
+	      </if>
+	      <if test="res_introduction != null" >
+	        res_introduction = #{res_introduction,jdbcType=VARCHAR},
+	      </if>
+	      <if test="res_url != null" >
+	        res_url = #{res_url,jdbcType=INTEGER},
+	      </if>
+	      <if test="res_flag != null" >
+	        res_flag = #{res_flag,jdbcType=INTEGER},
+	      </if>
+	      <if test="res_evalue != null" >
+	        res_evalue = #{res_evalue,jdbcType=DOUBLE},
+	      </if>
+	      <if test="res_eva_deadline != null" >
+	        res_eva_deadline = #{res_eva_deadline,jdbcType=VARCHAR},
+	      </if>
+	      <if test="res_protime != null" >
+	        res_protime = #{res_protime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="res_times != null" >
+	        res_times = #{res_times,jdbcType=INTEGER},
+	      </if>
+	     
+	    </set>
+	    where res_id = #{res_id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

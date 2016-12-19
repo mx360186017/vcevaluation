@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.ResultproviderMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Resultprovider">
+		<id column="rp_id" property="rp_id" jdbcType="INTEGER" />
+		<result column="rp_qualification" property="rp_qualification" jdbcType="VARCHAR" />
+		<result column="rp_field" property="rp_field" jdbcType="VARCHAR" />
+		<result column="rp_research" property="rp_research" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		rp_id, rp_qualification, rp_field, rp_research
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertResultprovider" parameterType="com.vcevaluation.pojo.Resultprovider">
+		insert into resultprovider ( rp_id, rp_qualification, rp_field, rp_research)
+		values ( #{rp_id,jdbcType=INTEGER}, 
+		#{rp_qualification,jdbcType=VARCHAR},
+		#{rp_field,jdbcType=VARCHAR}, 
+		#{rp_research,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resultprovider
+    where rp_id = #{rp_id,jdbcType=INTEGER}
+    </select>
+   <update id="updateByPrimaryKey" parameterType="com.vcevaluation.pojo.Eva_expert" >
+    update resultprovider
+    set  rp_qualification = #{rp_qualification,jdbcType=VARCHAR},
+         rp_field = #{rp_field,jdbcType=VARCHAR},
+         rp_research = #{rp_research,jdbcType=VARCHAR}
+    where rp_id = #{rp_id,jdbcType=INTEGER}
+  </update>
+
+
+
+</mapper>

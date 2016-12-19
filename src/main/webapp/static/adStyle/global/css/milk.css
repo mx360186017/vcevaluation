@@ -1,0 +1,39 @@
+/* GENERAL ELEMENTS */
+#registerform label.error {
+	background: url("../../img/unchecked.gif") no-repeat 0px 0px;
+	padding-left: 16px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #EA5200;
+	background-position: 2px;
+}
+
+#registerform label.checked {
+	background: url("../../img/checked.gif") no-repeat 5px 15px;
+}
+
+#registerform .success_msg {
+	font-weight: bold;
+	color: #0060BF;
+	margin-left: 19px;
+}
+
+/* GENERAL ELEMENTS */
+#loginform label.error {
+	background: url("../../img/unchecked.gif") no-repeat 0px 0px;
+	padding-left: 16px;
+	padding-bottom: 2px;
+	font-weight: bold;
+	color: #EA5200;
+	background-position: 2px;
+}
+
+#loginform label.checked {
+	background: url("../../img/checked.gif") no-repeat 0px 8px;
+}
+
+#loginform .success_msg {
+	font-weight: bold;
+	color: #0060BF;
+	margin-left: 19px;
+}

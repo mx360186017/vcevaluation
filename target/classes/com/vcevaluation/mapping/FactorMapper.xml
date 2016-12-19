@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.FactorMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Factor">
+		<id column="factor_id" property="factor_id" jdbcType="INTEGER" />
+		<result column="factor_index_id" property="factor_index_id" jdbcType="INTEGER" />
+		<result column="factor_name" property="factor_name" jdbcType="VARCHAR" />
+		<result column="factor_parameter" property="factor_parameter" jdbcType="VARCHAR" />
+		<result column="factor_weight" property="factor_weight" jdbcType="DOUBLE" />
+		<result column="factor_remark" property="factor_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		factor_id, factor_index_id, factor_name, factor_parameter, factor_weight, factor_remark
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertFactor" parameterType="com.vcevaluation.pojo.Factor">
+		insert into factor (factor_index_id, factor_name, factor_parameter, factor_weight, factor_remark)
+		values (#{factor_index_id,jdbcType=INTEGER},
+		#{factor_name,jdbcType=VARCHAR}, 
+		#{factor_parameter,jdbcType=VARCHAR},
+		#{factor_weight,jdbcType=DOUBLE},
+		#{factor_remark,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from factor
+	    where factor_id = #{factor_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByindex" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from factor
+	    where #{factor_index_id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByindex1" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Factor" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from factor
+	    where factor_index_id = 1 and factor_remark = #{factor_remark,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByindex2" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Factor" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from factor
+	    where factor_index_id = 2 and factor_remark = #{factor_remark,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByindexParameter" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Factor" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from factor
+	    where factor_remark = #{factor_remark,jdbcType=VARCHAR}
+	</select>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Factor" >
+	    update factor
+	    <set >
+	      <if test="factor_index_id != null" >
+	        factor_index_id = #{factor_index_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="factor_name != null" >
+	        factor_name = #{factor_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="factor_parameter != null" >
+	        factor_parameter = #{factor_parameter,jdbcType=VARCHAR},
+	      </if>
+	      <if test="factor_weight != null" >
+	        factor_weight = #{factor_weight,jdbcType=DOUBLE},
+	      </if>
+	      <if test="factor_remark != null" >
+	        factor_remark = #{factor_remark,jdbcType=VARCHAR},
+	      </if>
+	      
+	    </set>
+	    where factor_id = #{factor_id,jdbcType=INTEGER}
+	</update>
+<!-- 	<select id="selectFactorByIndex" resultType="java.util.Map">
+	   select 
+	   <include refid="Base_Column_List" />
+       from factor
+       where factor_remark = #{factor_remark,jdbcType=VARCHAR} and f.factor_index_id=12
+	</select> -->
+</mapper>

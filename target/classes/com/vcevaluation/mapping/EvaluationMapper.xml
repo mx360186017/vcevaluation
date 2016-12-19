@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.EvaluationMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Evaluation">
+		<id column="eva_id" property="eva_id" jdbcType="INTEGER" />
+		<result column="eva_pro_id" property="eva_pro_id" jdbcType="INTEGER" />
+		<result column="eva_res_id" property="eva_res_id" jdbcType="INTEGER" />
+		<result column="eva_ex_id" property="eva_ex_id" jdbcType="INTEGER" />
+		<result column="eva_manual_value" property="eva_manual_value" jdbcType="DOUBLE"/>
+		<result column="eva_auto_value" property="eva_auto_value" jdbcType="DOUBLE" />
+		<result column="eva_time" property="eva_time" jdbcType="VARCHAR" />
+		<result column="eva_report" property="eva_report" jdbcType="VARCHAR" />
+		<result column="eva_type" property="eva_type" jdbcType="INTEGER" />
+		<result column="eva_short" property="eva_short" jdbcType="VARCHAR" />	
+	</resultMap>
+	<sql id="Base_Column_List">
+		eva_id, eva_pro_id, eva_res_id, eva_ex_id, eva_manual_value, eva_auto_value, eva_time, eva_report, eva_type, eva_short	
+	</sql>
+	
+	<insert id="insertEvaluation" parameterType="com.vcevaluation.pojo.Evaluation">
+		insert into evaluation ( eva_pro_id, eva_res_id, eva_ex_id, eva_manual_value, eva_auto_value, eva_time, eva_report, eva_type, eva_short)
+		values ( #{eva_pro_id,jdbcType=INTEGER}, 
+		#{eva_res_id,jdbcType=INTEGER},
+		#{eva_ex_id,jdbcType=INTEGER},
+		#{eva_manual_value,jdbcType=DOUBLE},
+		#{eva_auto_value,jdbcType=DOUBLE},
+		#{eva_time,jdbcType=VARCHAR},
+		#{eva_report,jdbcType=VARCHAR},
+		#{eva_type,jdbcType=INTEGER},
+		#{eva_short,jdbcType=VARCHAR})
+    </insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Evaluation" >
+	    update evaluation
+	    <set >
+	      <if test="eva_pro_id != null" >
+	        eva_pro_id = #{eva_pro_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="eva_res_id != null" >
+	        eva_res_id = #{eva_res_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="eva_ex_id != null" >
+	        eva_ex_id = #{eva_ex_id,jdbcType=INTEGER},
+	      </if>
+	      <if test="eva_manual_value != null" >
+	        eva_manual_value = #{eva_manual_value,jdbcType=DOUBLE},
+	      </if>
+	      <if test="eva_auto_value != null" >
+	        eva_auto_value = #{eva_auto_value,jdbcType=DOUBLE},
+	      </if>
+	      <if test="eva_time != null" >
+	        eva_time = #{eva_time,jdbcType=VARCHAR},
+	      </if>
+	      <if test="eva_report != null" >
+	        eva_report = #{eva_report,jdbcType=VARCHAR},
+	      </if>
+	      <if test="eva_type != null" >
+	        eva_type = #{eva_type,jdbcType=INTEGER},
+	      </if>
+	       <if test="eva_short != null" >
+	        eva_short = #{eva_short,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where eva_id = #{eva_id,jdbcType=INTEGER}
+	</update>
+	  <select id="selectByMulAttribute" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Evaluation" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from evaluation
+	    where eva_res_id = #{eva_res_id,jdbcType=INTEGER}
+	          and eva_ex_id = #{eva_ex_id,jdbcType=INTEGER}
+	          and eva_time = #{eva_time,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByMulAttribute1" resultMap="BaseResultMap" parameterType="com.vcevaluation.pojo.Evaluation" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from evaluation
+	    where eva_pro_id = #{eva_pro_id,jdbcType=INTEGER}
+	          and eva_ex_id = #{eva_ex_id,jdbcType=INTEGER}
+	          and eva_time = #{eva_time,jdbcType=VARCHAR}
+	</select>
+	
+</mapper>

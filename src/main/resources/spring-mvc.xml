@@ -1,0 +1,137 @@
+﻿<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc 
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/aop 
+                        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="com.vcevaluation.controller" />
+
+	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->
+			</list>
+		</property>
+	</bean>
+	<!-- 定义跳转的文件的前后缀 ，视图模式配置（视图解析器） -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!--扫描包 -->
+	<context:component-scan base-package="com.vcevaluation.service"
+		annotation-config="true" />
+	<!-- ASPECTJ注解 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 得到springMVC所提供的注解驱动，识别全部的@RequestMapping -->
+	<mvc:annotation-driven />
+	
+	<!-- 处理对静态资源的请求 -->
+	<!--location用于指定静态资源的位置，mapping用来过滤请求 -->
+	<mvc:resources location="/static/adStyle/" mapping="/static/adStyle/**" />
+	<mvc:resources location="/static/adStyle/css/" mapping="/static/adStyle/css/**" />
+	<mvc:resources location="/static/adStyle/global/" mapping="/static/adStyle/global/**" />
+	<mvc:resources location="/static/adStyle/images/" mapping="/static/adStyle/images/**" />
+	<mvc:resources location="/static/adStyle/img/" mapping="/static/adStyle/img/**" />
+	<mvc:resources location="/static/adStyle/global/css/" mapping="/static/adStyle/global/css/**" />
+	<mvc:resources location="/static/adStyle/global/css/Pcss/" mapping="/static/adStyle/global/css/Pcss/**" />
+	<mvc:resources location="/static/adStyle/global/img/Pimg/" mapping="/static/adStyle/global/img/Pimg/**" />
+	<mvc:resources location="/static/adStyle/global/img/" mapping="/static/adStyle/global/img/**" />
+	
+	
+	<mvc:resources location="/static/My97DatePicker/" mapping="/static/My97DatePicker/**" />
+	<mvc:resources location="/static/My97DatePicker/lang/" mapping="/static/My97DatePicker/lang/**" />
+	<mvc:resources location="/static/My97DatePicker/skin/" mapping="/static/My97DatePicker/skin/**" />
+	<mvc:resources location="/static/My97DatePicker/skin/default/" mapping="/static/My97DatePicker/skin/default/**" />
+	<mvc:resources location="/static/My97DatePicker/skin/whyGreen/" mapping="/static/My97DatePicker/skin/whyGreen/**" />
+	<mvc:resources location="/static/media/assets/" mapping="/static/media/assets/**" />
+	<mvc:resources location="/static/media/assets/bootstrap/" mapping="/static/media/assets/bootstrap/**" />
+	<mvc:resources location="/static/media/assets/bootstrap/css/" mapping="/static/media/assets/bootstrap/css/**" />
+	<mvc:resources location="/static/media/assets/bootstrap/fonts/" mapping="/static/media/assets/bootstrap/fonts/**" />
+	<mvc:resources location="/static/media/assets/bootstrap/js/" mapping="/static/media/assets/bootstrap/js/**" />
+	<mvc:resources location="/static/media/assets/css/" mapping="/static/media/assets/css/**" />
+	<mvc:resources location="/static/media/assets/font-awesome/" mapping="/static/media/assets/font-awesome/**" />
+	<mvc:resources location="/static/media/assets/font-awesome/css/" mapping="/static/media/assets/font-awesome/css/**" />
+	<mvc:resources location="/static/media/assets/font-awesome/fonts/" mapping="/static/media/assets/font-awesome/fonts/**" />
+	<mvc:resources location="/static/media/assets/font-awesome/less/" mapping="/static/media/assets/font-awesome/less/**" />
+	<mvc:resources location="/static/media/assets/font-awesome/scss/" mapping="/static/media/assets/font-awesome/scss/**" />
+	<mvc:resources location="/static/media/assets/ico/" mapping="/static/media/assets/ico/**" />
+	<mvc:resources location="/static/media/assets/img/" mapping="/static/media/assets/img/**" />
+	<mvc:resources location="/static/media/assets/img/backgrounds/" mapping="/static/media/assets/img/backgrounds/**" />
+	<mvc:resources location="/static/media/assets/js/" mapping="/static/media/assets/js/**" />
+
+	<mvc:resources location="/static/media/images/" mapping="/static/media/images/**" />
+	<mvc:resources location="/static/media/js/" mapping="/static/media/js/**" />
+    <mvc:resources location="/static/media/css/" mapping="/static/media/css/**" />
+	<mvc:resources location="/static/media/fonts/" mapping="/static/media/fonts/**" />
+	
+	
+	<mvc:resources location="/static/projectstyle/bootstrap/" mapping="/static/projectstyle/bootstrap/**" />
+	<mvc:resources location="/static/projectstyle/bootstrap/css/" mapping="/static/projectstyle/bootstrap/css/**" />
+	<mvc:resources location="/static/projectstyle/bootstrap/fonts/" mapping="/static/projectstyle/bootstrap/fonts/**" />
+	<mvc:resources location="/static/projectstyle/bootstrap/js/" mapping="/static/projectstyle/bootstrap/js/**" />
+	<mvc:resources location="/static/projectstyle/css/" mapping="/static/projectstyle/css/**" />
+	<mvc:resources location="/static/projectstyle/css/skins/" mapping="/static/projectstyle/css/skins/**" />
+	<mvc:resources location="/static/projectstyle/fonts/" mapping="/static/projectstyle/fonts/**" />
+	<mvc:resources location="/static/projectstyle/fonts/font-awesome/" mapping="/static/projectstyle/fonts/font-awesome/**" />
+	<mvc:resources location="/static/projectstyle/fonts/font-awesome/css/" mapping="/static/projectstyle/fonts/font-awesome/css/**" />
+	<mvc:resources location="/static/projectstyle/fonts/font-awesome/fonts/" mapping="/static/projectstyle/fonts/font-awesome/fonts/**" />
+	<mvc:resources location="/static/projectstyle/fonts/font-awesome/less/" mapping="/static/projectstyle/fonts/font-awesome/less/**" />
+	<mvc:resources location="/static/projectstyle/fonts/font-awesome/scss/" mapping="/static/projectstyle/fonts/font-awesome/scss/**" />
+	<mvc:resources location="/static/projectstyle/fonts/fontello/" mapping="/static/projectstyle/fonts/fontello/**" />
+	<mvc:resources location="/static/projectstyle/fonts/fontello/css/" mapping="/static/projectstyle/fonts/fontello/css/**" />
+	<mvc:resources location="/static/projectstyle/fonts/fontello/font/" mapping="/static/projectstyle/fonts/fontello/font/**" />
+	<mvc:resources location="/static/projectstyle/images/" mapping="/static/projectstyle/images/**" />
+	<mvc:resources location="/static/projectstyle/js/" mapping="/static/projectstyle/js/**" />
+    <mvc:resources location="/static/projectstyle/php/" mapping="/static/projectstyle/js/php/**" />
+    <mvc:resources location="/static/projectstyle/plugins/" mapping="/static/projectstyle/plugins/**" />
+    <mvc:resources location="/static/projectstyle/plugins/isotope/" mapping="/static/projectstyle/plugins/isotope/**" />
+    <mvc:resources location="/static/projectstyle/plugins/jquery.countdown/" mapping="/static/projectstyle/plugins/jquery.countdown/**" />
+    <mvc:resources location="/static/projectstyle/plugins/magnific-popup/" mapping="/static/projectstyle/plugins/magnific-popup/**" />
+    <mvc:resources location="/static/projectstyle/plugins/owl-carousel/" mapping="/static/projectstyle/plugins/owl-carousel/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/" mapping="/static/projectstyle/plugins/rs-plugin/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/assets/" mapping="/static/projectstyle/plugins/rs-plugin/assets/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/css/" mapping="/static/projectstyle/plugins/rs-plugin/css/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/font/" mapping="/static/projectstyle/plugins/rs-plugin/font/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/images/" mapping="/static/projectstyle/plugins/rs-plugin/images/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/images/gradient/" mapping="/static/projectstyle/plugins/rs-plugin/images/gradient/**" />
+    <mvc:resources location="/static/projectstyle/plugins/rs-plugin/js/" mapping="/static/projectstyle/plugins/js/**" />
+
+       
+
+	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 默认编码 -->
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 文件大小最大值 -->
+		<property name="maxUploadSize" value="10485760000" />
+		<!-- 内存中的最大值 -->
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+
+</beans>

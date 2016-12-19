@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.TeamMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Team">
+		<id column="team_id" property="team_id" jdbcType="INTEGER" />
+		<result column="team_name" property="team_name" jdbcType="VARCHAR" />
+		<result column="team_introduction" property="team_introduction" jdbcType="VARCHAR" />
+		<result column="cooperation_time" property="cooperation_time" jdbcType="VARCHAR" />
+		<result column="team_remark" property="team_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		team_id, team_name, team_introduction, cooperation_time, team_remark
+	</sql>
+	
+	<insert id="insertTeam" parameterType="com.vcevaluation.pojo.Team">
+		insert into team ( team_name, team_introduction, cooperation_time, team_remark)
+		values (#{team_name,jdbcType=VARCHAR}, 
+		#{team_introduction,jdbcType=VARCHAR}, 
+		#{cooperation_time,jdbcType=VARCHAR}, 
+		#{team_remark,jdbcType=VARCHAR})
+    </insert>
+	
+	 
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from team
+	    where team_id = #{team_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from team
+	    where team_id = #{team_id,jdbcType=INTEGER}
+	</select>
+  
+    <select id="selectallTeam"  resultMap="BaseResultMap">
+  		select * from team 
+    </select>
+  
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Team" >
+	    update team
+	    <set >
+	    <if test="team_name != null" >
+	        team_name = #{team_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="team_introduction != null" >
+	        team_introduction = #{team_introduction,jdbcType=VARCHAR},
+	      </if>
+	      <if test="cooperation_time != null" >
+	        cooperation_time = #{cooperation_time,jdbcType=VARCHAR},
+	      </if>
+	      <if test="team_remark != null" >
+	        team_remark = #{team_remark,jdbcType=VARCHAR},
+	      </if>
+	     
+	    </set>
+	    where team_id = #{team_id,jdbcType=INTEGER}
+	</update>
+	<!--多表链接查询  -->
+	 <select id="selectMemberByTeamId"  resultType="java.util.Map" parameterType="java.lang.Integer" >
+  		select * 
+  		from team,member
+  		where member.member_team=team.team_id and team.team_id = #{team_id,jdbcType=INTEGER}
+    </select>
+	
+	<select id="selectTeamMember"  resultType="java.util.Map" >
+  		select * 
+  		from team,member
+  		where member.member_team=team.team_id 
+    </select>
+	
+</mapper>

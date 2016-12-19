@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.PaperMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Paper">
+		<id column="paper_id" property="paper_id" jdbcType="INTEGER" />
+		<result column="paper_name" property="paper_name" jdbcType="VARCHAR" />
+		<result column="paper_pubtime" property="paper_pubtime" jdbcType="VARCHAR" />
+		<result column="paper_cited" property="paper_cited" jdbcType="INTEGER" />
+		<result column="paper_keywords" property="paper_keywords" jdbcType="VARCHAR" />
+		<result column="paper_category" property="paper_category" jdbcType="INTEGER" />
+		<result column="published_journals" property="published_journals" jdbcType="INTEGER" />
+		<result column="paper_remark" property="paper_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		paper_id, paper_name, paper_pubtime, paper_cited, paper_keywords,
+		paper_category, published_journals, paper_remark
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertPaper" parameterType="com.vcevaluation.pojo.Paper">
+		insert into paper (paper_id, paper_name, paper_pubtime, paper_cited, paper_keywords,
+		paper_category, published_journals, paper_remark)
+		values ( #{paper_id,jdbcType=INTEGER}, 
+		#{paper_name,jdbcType=VARCHAR},
+		#{paper_pubtime,jdbcType=VARCHAR}, 
+		#{paper_cited,jdbcType=INTEGER},
+		#{paper_keywords,jdbcType=VARCHAR},
+		#{paper_category,jdbcType=INTEGER}, 
+		#{published_journals,jdbcType=INTEGER},
+		#{paper_remark,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from paper
+	    where paper_id = #{paper_id,jdbcType=INTEGER}
+	</select>
+
+
+
+</mapper>

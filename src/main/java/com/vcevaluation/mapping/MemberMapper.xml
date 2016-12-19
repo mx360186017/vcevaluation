@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.MemberMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Member">
+		<id column="member_id" property="member_id" jdbcType="INTEGER" />
+		<result column="member_name" property="member_name" jdbcType="VARCHAR" />
+		<result column="member_gender" property="member_gender" jdbcType="INTEGER" />
+		<result column="member_edu" property="member_edu" jdbcType="INTEGER" />
+		<result column="member_job" property="member_job" jdbcType="VARCHAR" />
+		<result column="member_work" property="member_work" jdbcType="VARCHAR" />
+		<result column="member_team" property="member_team" jdbcType="INTEGER" />
+		<result column="member_intime" property="member_intime" jdbcType="VARCHAR" />
+		<result column="member_level" property="member_level" jdbcType="VARCHAR" />
+		<result column="member_remark" property="member_remark" jdbcType="VARCHAR" />
+		<result column="member_image" property="member_image" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		member_id, member_name, member_gender, member_edu, member_job, member_work, member_team,
+		member_intime, member_level, member_remark,member_image
+	</sql>
+	
+	<insert id="insertMember" parameterType="com.vcevaluation.pojo.Member">
+		insert into member ( member_name, member_gender, member_edu, member_job, member_work, member_team,member_intime, member_level, member_remark,member_image)
+		values ( #{member_name,jdbcType=VARCHAR}, 
+		#{member_gender,jdbcType=INTEGER}, 
+		#{member_edu,jdbcType=INTEGER},
+		#{member_job,jdbcType=VARCHAR},
+		#{member_work,jdbcType=VARCHAR},
+		#{member_team,jdbcType=INTEGER},
+		#{member_intime,jdbcType=VARCHAR},
+		#{member_level,jdbcType=VARCHAR},
+		#{member_remark,jdbcType=VARCHAR},
+		#{member_image,jdbcType=VARCHAR})
+    </insert>
+	
+	 
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	    delete from member
+	    where member_id = #{member_id,jdbcType=INTEGER}
+    </delete>
+  
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from member
+	    where member_id = #{member_id,jdbcType=INTEGER}
+	</select>
+  
+    <select id="selectallMember" resultMap="BaseResultMap">
+  		select * from member 
+    </select>
+    <select id="selectMemberByTeamID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from member
+	    where member_team = #{member_team,jdbcType=INTEGER}
+	</select>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vcevaluation.pojo.Member" >
+	    update member
+	    <set >
+	      <if test="member_name != null" >
+	        member_name = #{member_name,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_gender != null" >
+	        member_gender = #{member_gender,jdbcType=INTEGER},
+	      </if>
+	      <if test="member_edu != null" >
+	        member_edu = #{member_edu,jdbcType=INTEGER},
+	      </if>
+	      <if test="member_job != null" >
+	        member_job = #{member_job,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_work != null" >
+	        member_work = #{member_work,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_team != null" >
+	        member_team = #{member_team,jdbcType=INTEGER},
+	      </if>
+	      <if test="member_intime != null" >
+	        member_intime = #{member_intime,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_level != null" >
+	        member_level = #{member_level,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_remark != null" >
+	        member_remark = #{member_remark,jdbcType=VARCHAR},
+	      </if>
+	      <if test="member_image != null" >
+	        member_image = #{member_image,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where member_id = #{member_id,jdbcType=INTEGER}
+	</update>
+	  
+	
+</mapper>

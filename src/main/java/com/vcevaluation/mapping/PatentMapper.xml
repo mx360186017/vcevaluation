@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.PatentMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Patent">
+		<id column="patent_id" property="patent_id" jdbcType="INTEGER" />
+		<result column="pa_name" property="pa_name" jdbcType="VARCHAR" />
+		<result column="pa_number" property="pa_number" jdbcType="VARCHAR" />
+		<result column="pa_inventor" property="pa_inventor" jdbcType="VARCHAR" />
+		<result column="pa_pubtime" property="pa_pubtime" jdbcType="VARCHAR" />
+		<result column="pa_abstract" property="pa_abstract" jdbcType="VARCHAR" />
+		<result column="pa_type" property="pa_type" jdbcType="INTEGER" />
+		<result column="pa_details" property="pa_details" jdbcType="VARCHAR" />
+		<result column="pa_remark" property="pa_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		patent_id, pa_name, pa_number, pa_inventor, pa_pubtime,
+		pa_abstract, pa_type, pa_details, pa_remark
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertPatent" parameterType="com.vcevaluation.pojo.Patent">
+		insert into patent (patent_id, pa_name, pa_number, pa_inventor, pa_pubtime,
+		pa_abstract, pa_type, pa_details,pa_remark)
+		values ( #{patent_id,jdbcType=INTEGER}, 
+		#{pa_name,jdbcType=VARCHAR},
+		#{pa_number,jdbcType=VARCHAR}, 
+		#{pa_inventor,jdbcType=INTEGER},
+		#{pa_pubtime,jdbcType=VARCHAR},
+		#{pa_abstract,jdbcType=VARCHAR}, 
+		#{pa_type,jdbcType=VARCHAR},
+		#{pa_details,jdbcType=VARCHAR},
+		#{pa_remark,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from patent
+	    where patent_id = #{patent_id,jdbcType=INTEGER}
+	</select>
+
+
+
+</mapper>

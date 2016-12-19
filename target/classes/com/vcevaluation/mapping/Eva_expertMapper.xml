@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.Eva_expertMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Eva_expert">
+		<id column="ex_id" property="ex_id" jdbcType="INTEGER" />
+		<result column="ex_qualification" property="ex_qualification" jdbcType="VARCHAR" />
+		<result column="ex_expertise" property="ex_expertise" jdbcType="VARCHAR" />
+		<result column="ex_businessfield" property="ex_businessfield" jdbcType="VARCHAR" />
+		<result column="ex_remark" property="ex_remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ex_id, ex_qualification, ex_expertise, ex_businessfield, ex_remark
+	</sql>
+<!--  
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where user_id = #{user_id,jdbcType=INTEGER}
+	</delete>
+-->	
+	<insert id="insertEva_expert" parameterType="com.vcevaluation.pojo.Eva_expert">
+		insert into eva_expert ( ex_id, ex_qualification, ex_expertise, ex_businessfield, ex_remark)
+		values ( #{ex_id,jdbcType=INTEGER}, 
+		#{ex_qualification,jdbcType=VARCHAR},
+		#{ex_expertise,jdbcType=VARCHAR}, 
+		#{ex_businessfield,jdbcType=VARCHAR},
+		#{ex_remark,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from eva_expert
+    where ex_id = #{ex_id,jdbcType=INTEGER}
+    </select>
+
+   <update id="updateByPrimaryKey" parameterType="com.vcevaluation.pojo.Eva_expert" >
+    update eva_expert
+    set  ex_qualification = #{ex_qualification,jdbcType=VARCHAR},
+      ex_expertise = #{ex_expertise,jdbcType=VARCHAR},
+      ex_businessfield = #{ex_businessfield,jdbcType=VARCHAR},
+      ex_remark = #{ex_remark,jdbcType=VARCHAR}
+    where ex_id = #{ex_id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

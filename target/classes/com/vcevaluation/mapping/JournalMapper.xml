@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:///www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcevaluation.mapping.JournalMapper">
+	<resultMap id="BaseResultMap" type="com.vcevaluation.pojo.Journal">
+		<id column="j_id" property="j_id" jdbcType="INTEGER" />
+		<result column="j_name" property="j_name" jdbcType="VARCHAR" />
+		<result column="j_factor" property="j_factor" jdbcType="DOUBLE"/>
+		<result column="j_classfy" property="j_classfy" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		j_id, j_name, j_factor, j_classfy
+	</sql>
+
+
+	<select id="selectByJournalPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from journal
+	    where j_id = #{j_id,jdbcType=INTEGER}
+	</select>
+  
+  
+    <select id="selectallJournal" resultMap="BaseResultMap">
+  		select * from journal 
+    </select>
+ 
+</mapper>
